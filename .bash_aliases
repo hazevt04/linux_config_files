@@ -83,6 +83,8 @@ alias_func uu "cd ..; ls -ltr; pwd"
 alias_func gurl "git remote -v"
 alias_func gba "git branch -a"
 
+alias_func gstat "git status"
+
 gdiff() {
    git diff "$@"
 }
@@ -92,18 +94,41 @@ gdiffs() {
 }
 
 gclone() {
-   url=$@
+   url="git@github.com:hazevt04/${1}.git"
    # Extract the directory name from the Git URL
-   dirname=$(echo $url | cut -d '/' -f 2| cut -d '.' -f 1)
+   dirname=$1
    git clone "$url" --branch develop "$dirname"
 }
 
-gclone() {
-   url=$1
+gcloneb() {
+   url="git@github.com:hazevt04/${1}.git"
    branch=$2
-   # Extract the directory name from the Git URL
-   dirname=$(echo $url | cut -d '/' -f 2| cut -d '.' -f 1)
+   dirname=$1
    git clone "$url" --branch "$branch" "${dirname}_${branch}"
 }
+
+gfetch() {
+   url="git@github.com:hazevt04/${1}.git"
+   branch=$2
+   git fetch "$url" "$branch"
+}
+
+
+gpull() {
+   url="git@github.com:hazevt04/${1}.git"
+   branch=$2
+   git pull "$url" "$branch"
+}
+
+
+gcommit() {
+   git commit -m "$@"
+}
+
+gpo() {
+   git push origin $1
+}
+
+
 
 

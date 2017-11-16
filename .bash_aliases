@@ -1,3 +1,5 @@
+# Function for checking whether or not an alias already exists
+# and if it doesn't it makes the alias
 alias_func() {
   aname=$1
   acmd=$2
@@ -8,8 +10,14 @@ alias_func() {
   fi
 }
 
+alias_func back "cd $OLDPWD"
+
 k9() {
   kill -9 "$@"
+}
+
+function whereis (){
+  find . -name "$1*";
 }
 
 # Put a symbolic link called (linkname) to PWD in ~
@@ -32,7 +40,7 @@ c() {
       destination=$*
    fi
    builtin cd "${destination}" > /dev/null
-   ls -ltr
+   ls -altr
    pwd
 }
 
@@ -44,7 +52,7 @@ mkdircd() {
    mkdir $1;
    cd $1;
    pwd;
-   ls -ltr;
+   ls -altr;
 }
 
 alias_func srcit "source ~/.bashrc"

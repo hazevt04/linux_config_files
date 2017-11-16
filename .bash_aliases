@@ -10,6 +10,25 @@ alias_func() {
   fi
 }
 
+# The if statement below is 
+# the equivalent of alias_func for functions!
+# Copy the if statement guard to all functions!
+if [[ -z $(type -t contains) ]]; then
+  function contains() {
+    local n=$#
+    local value=${!n}
+    for ((i=1;i < $#;i++)) {
+        if [ "${!i}" == "${value}" ]; then
+            echo "y"
+            return 0
+        fi
+    }
+    echo "n"
+    return 1
+  }
+fi
+
+
 # Check out: http://www.catonmat.net/blog/wp-content/uploads/2008/09/sed1line.txt
 # for awesome sed oneliners to make into functions (or aliases)!
 
@@ -17,6 +36,9 @@ alias_func() {
 # for awesome AWK oneliners to make into functions (or aliases)!
 
 alias_func back "cd $OLDPWD"
+
+alias_func basehostname "hostname -s"
+alias_func bhname "basehostname"
 
 k9() {
   kill -9 "$@"

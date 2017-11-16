@@ -27,11 +27,11 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-if [[ $HOSTNAME == <name> ]]; then
-  LS_COLORS="ex=01;33:di=00;93;104:ln=00;30;47"
-else
+#if [[ $HOSTNAME == <name> ]]; then
+#  LS_COLORS="ex=01;33:di=00;93;104:ln=00;30;47"
+#else
   LS_COLORS="ex=01;33:ow=01;94:ln=00;97"
-fi
+#fi
 export LS_COLORS
 
 # Prevent SSH from hanging on exit
@@ -39,9 +39,6 @@ shopt -s huponexit
 
 # Colorize the text that matches with grep
 export GREP_OPTIONS="--color"
-
-# Turn the bell off
-xset b off
 
 # On remote host disable START/STOP signals
 # Cntrl+S
@@ -139,3 +136,5 @@ fi
 export MANPATH=$MANPATH:/usr/share/man
 
 export PATH=$PATH:.
+export DISPLAY=:0
+

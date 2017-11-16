@@ -10,6 +10,12 @@ alias_func() {
   fi
 }
 
+# Check out: http://www.catonmat.net/blog/wp-content/uploads/2008/09/sed1line.txt
+# for awesome sed oneliners to make into functions (or aliases)!
+
+# Check out: http://www.catonmat.net/blog/wp-content/uploads/2008/09/sed1line.txt
+# for awesome AWK oneliners to make into functions (or aliases)!
+
 alias_func back "cd $OLDPWD"
 
 k9() {

@@ -1,7 +1,7 @@
 alias_func() {
   aname=$1
   acmd=$2
-  if type $aname 2>/dev/null; then
+  if type $aname >/dev/null 2>&1; then
     echo "$aname is a command or alias already! Not aliasing"
   else
     alias $aname="$acmd"
@@ -32,6 +32,8 @@ c() {
       destination=$*
    fi
    builtin cd "${destination}" > /dev/null
+   ls -ltr
+   pwd
 }
 
 #l() {
@@ -53,8 +55,6 @@ alias_func charc "gvim ~/.bashrc &"
 
 alias_func chvimrc "gvim ~/.vimrc &"
 alias_func chcrc "gvim ~/c_code.vim"
-
-alias_func g "gvim -o $@"
 
 jason() {
    skey=$1;
@@ -83,7 +83,8 @@ alias_func uu "cd ..; ls -ltr; pwd"
 alias_func gurl "git remote -v"
 alias_func gba "git branch -a"
 
-alias_func gstat "git status"
+# Always override gs. I don't normally use Ghostscript
+alias gs="git status"
 
 gdiff() {
    git diff "$@"

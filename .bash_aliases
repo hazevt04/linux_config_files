@@ -10,11 +10,20 @@ alias_func() {
   fi
 }
 
+# To unset functions
+unsetfunc() {
+   if type $1 >/dev/null 2>&1; then
+      unset -f "$@"
+   else
+      echo "$@ is not a function."
+   fi
+}
+
 # The if statement below is 
 # the equivalent of alias_func for functions!
 # Copy the if statement guard to all functions!
 if [[ -z $(type -t contains) ]]; then
-  function contains() {
+  contains() {
     local n=$#
     local value=${!n}
     for ((i=1;i < $#;i++)) {
@@ -40,67 +49,83 @@ alias_func back "cd $OLDPWD"
 alias_func basehostname "hostname -s"
 alias_func bhname "basehostname"
 
-k9() {
-  kill -9 "$@"
-}
+if [[ -z $(type -t k9) ]]; then
+   k9() {
+     kill -9 "$@"
+   }
+fi
 
-function whereis (){
-  find . -name "$1*";
-}
+if [[ -z $(type -t whereis) ]]; then
+   whereis() {
+      find . -name "$1*";
+   }
+fi
 
 # Put a symbolic link called (linkname) to PWD in ~
-lnpwd() {
-  linkname=$1
-  ln -s "$PWD" ~/"${linkname}"
-}
+if [[ -z $(type -t lnpwd) ]]; then
+   lnpwd() {
+     linkname=$1
+     ln -s "$PWD" ~/"${linkname}"
+   }
+fi
 
 # Dump the output of a man page
 # to another (cmd).MAN.OUT without the annoying
 # extra characters
-dump_man() {
-   man $1 | col -b > $1.MAN.OUT
-}
+if [[ -z $(type -t dump_man) ]]; then
+   dump_man() {
+      man $1 | col -b > $1.MAN.OUT
+   }
+fi
 
-c() {
-   if [ -z "$*" ]; then
-      destination=~
-   else
-      destination=$*
-   fi
-   builtin cd "${destination}" > /dev/null
-   ls -altr
-   pwd
-}
+if [[ -z $(type -t c) ]]; then
+   c() {
+      if [ -z "$*" ]; then
+         destination=~
+      else
+         destination=$*
+      fi
+      builtin cd "${destination}" > /dev/null
+      ls -altr
+      pwd
+   }
+fi
 
 #l() {
 #   ls "$@"
 #}
 
-mkdircd() {
-   mkdir $1;
-   cd $1;
-   pwd;
-   ls -altr;
-}
+if [[ -z $(type -t mkdircd) ]]; then
+   mkdircd() {
+      mkdir $1;
+      cd $1;
+      pwd;
+      ls -altr;
+   }
+   alias_func mkc "mkdircd"
+fi
 
 alias_func srcit "source ~/.bashrc"
 alias_func srcali "source ~/.bash_aliases"
 
 alias_func chali "gvim ~/.bash_aliases &"
 alias_func charc "gvim ~/.bashrc &"
+alias_func refali "exec bash"
 
 alias_func chvimrc "gvim ~/.vimrc &"
 alias_func chcrc "gvim ~/c_code.vim"
 
-jason() {
-   skey=$1;
-   rep=$2;
-   mkdir BACKUP;
-   cp *.c BACKUP;
-   cp *.h BACKUP;
-   perl -p -i -e "s/$1/$2/g" *.c;
-   perl -p -i -e "s/$1/$2/g" *.h;
-}
+if [[ -z $(type -t jason) ]]; then
+   jason() {
+      skey=$1;
+      rep=$2;
+      mkdir BACKUP;
+      cp *.c BACKUP;
+      cp *.h BACKUP;
+      perl -p -i -e "s/$1/$2/g" *.c;
+      perl -p -i -e "s/$1/$2/g" *.h;
+   }
+fi
 
 alias_func undo_jason "cp BACKUP/*.c .;cp BACKUP/*.h .;"
 alias_func jason_undo "undo_jason;"
@@ -108,10 +133,23 @@ alias_func jason_undo "undo_jason;"
 alias_func clean_jason "rm -rf BACKUP;"
 alias_func jason_clean "clean_jason;"
 
-v() {
-   vim $1;
-}
+if [[ -z $(type -t v) ]]; then
+   v() {
+      vim $1;
+   }
+fi
 
+if [[ -z $(type -t g) ]]; then
+   g() {
+      gvim "$@";
+   }
+fi
+
+if [[ -z $(type -t e) ]]; then
+   e() {
+      evince "$@";
+   }
+fi
 
 alias_func u "cd ..; ls -ltr; pwd"
 alias_func uu "cd ..; ls -ltr; pwd"
@@ -122,50 +160,92 @@ alias_func gba "git branch -a"
 # Always override gs. I don't normally use Ghostscript
 alias gs="git status"
 
-gdiff() {
-   git diff "$@"
-}
+alias_func replace_spaces "for f in *\ *; do mv \"\$f\" \"\${f// /_}\"; done"
+alias_func repspaces "replace_spaces"
 
-gdiffs() {
-   git diff --staged "$@"
-}
+if [[ -z $(type -t gdiff) ]]; then
+   gdiff() {
+      git diff "$@"
+   }
+fi
 
-gclone() {
-   url="git@github.com:hazevt04/${1}.git"
-   # Extract the directory name from the Git URL
-   dirname=$1
-   git clone "$url" --branch develop "$dirname"
-}
+if [[ -z $(type -t gdiffs) ]]; then
+   gdiffs() {
+      git diff --staged "$@"
+   }
+fi
 
-gcloneb() {
-   url="git@github.com:hazevt04/${1}.git"
-   branch=$2
-   dirname=$1
-   git clone "$url" --branch "$branch" "${dirname}_${branch}"
-}
+if [[ -z $(type -t gclone) ]]; then
+   gclone() {
+      url="git@github.com:hazevt04/${1}.git"
+      # Extract the directory name from the Git URL
+      dirname=$1
+      git clone "$url" --branch develop "$dirname"
+   }
+fi
 
-gfetch() {
-   url="git@github.com:hazevt04/${1}.git"
-   branch=$2
-   git fetch "$url" "$branch"
-}
+if [[ -z $(type -t gcloneb) ]]; then
+   gcloneb() {
+      url="git@github.com:hazevt04/${1}.git"
+      branch=$2
+      dirname=$1
+      git clone "$url" --branch "$branch" "${dirname}_${branch}"
+   }
+fi
+
+if [[ -z $(type -t gfetch) ]]; then
+   gfetch() {
+      url="git@github.com:hazevt04/${1}.git"
+      branch=$2
+      git fetch "$url" "$branch"
+   }
+fi
+
+if [[ -z $(type -t gpull) ]]; then
+   gpull() {
+      url="git@github.com:hazevt04/${1}.git"
+      branch=$2
+      git pull "$url" "$branch"
+   }
+fi
+
+if [[ -z $(type -t gcommit) ]]; then
+   gcommit() {
+      git commit -m "$@"
+   }
+fi
+
+alias_func gcomm "gcommit"
+   
+if [[ -z $(type -t gpo) ]]; then
+   gpo() {
+      current_branch=$(git status -v | grep "On branch" | cut -d ' ' -f 3)
+      git push origin $current_branch
+   }
+fi
+
+if [[ -z $(type -t gpo) ]]; then
+   gpob() {
+      git push origin $1
+   }
+fi
 
 
-gpull() {
-   url="git@github.com:hazevt04/${1}.git"
-   branch=$2
-   git pull "$url" "$branch"
-}
+if [[ -z $(type -t gadd) ]]; then
+   gadd() {
+      git add "$@"
+   }
+fi
 
-
-gcommit() {
-   git commit -m "$@"
-}
-
-gpo() {
-   git push origin $1
-}
+alias_func gaddu "git add -u"
 
 
 
 
+if [[ -z $(type -t mmm) ]]; then
+   mmm() {
+      /home/glenn/Programming/mad_men_money/mad_men_money "$@"
+   }
+else
+   echo "mmm already defined. Maybe it's already a command or function"
+fi

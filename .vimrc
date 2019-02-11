@@ -53,7 +53,7 @@ if has("autocmd")
    autocmd FileType make setlocal noexpandtab
 
    " run a script for every new file
-"  autocmd BufNewFile * execute "0, 0 !<path to script generating prototype> <afile>"
+   autocmd BufNewFile * execute "0, 0 !/usr/bin/gen_proto/gen_proto.rb <afile>"
 
    " For Vim change line highlighting for insert mode
    " vs normal mode
@@ -63,7 +63,7 @@ if has("autocmd")
    highlight CursorLine ctermbg=None ctermfg=None
 
    "Change color when entering Insert mode
-   autocmd InsertEnter * highlight CursorLine ctermbg=Blue ctermfg=None
+   autocmd InsertEnter * highlight CursorLine ctermbg=White ctermfg=Black
 
    "Revert to default when leaving Insert mode
    autocmd InsertLeave * highlight CursorLine ctermbg=None ctermfg=None

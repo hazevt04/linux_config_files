@@ -27,23 +27,6 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-#if [[ $HOSTNAME == <name> ]]; then
-#  LS_COLORS="ex=01;33:di=00;93;104:ln=00;30;47"
-#else
-  LS_COLORS="ex=01;33:ow=01;94:ln=00;97"
-#fi
-export LS_COLORS
-
-# Prevent SSH from hanging on exit
-shopt -s huponexit
-
-# Colorize the text that matches with grep
-export GREP_OPTIONS="--color"
-
-# On remote host disable START/STOP signals
-# Cntrl+S
-stty -ixon
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -105,9 +88,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-#alias ll='ls -alF'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -132,9 +115,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-export MANPATH=$MANPATH:/usr/share/man
-
-export PATH=$PATH:.
-export DISPLAY=:0
-

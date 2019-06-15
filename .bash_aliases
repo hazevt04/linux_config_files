@@ -141,13 +141,13 @@ fi
 
 if [[ -z $(type -t g) ]]; then
    g() {
-      gvim "$@";
+      gvim "$@" &
    }
 fi
 
 if [[ -z $(type -t e) ]]; then
    e() {
-      evince "$@";
+      evince "$@" &
    }
 fi
 
@@ -239,8 +239,13 @@ fi
 
 alias_func gaddu "git add -u"
 
-
-
+if [[ -z $(type -t gacp) ]]; then
+   gacp() {
+      gaddu
+      gcomm "$@"
+      gpo
+   }
+fi
 
 if [[ -z $(type -t mmm) ]]; then
    mmm() {
@@ -249,3 +254,5 @@ if [[ -z $(type -t mmm) ]]; then
 else
    echo "mmm already defined. Maybe it's already a command or function"
 fi
+
+alias_func intel_vtune "/home/glenn/intel/vtune_amplifier/bin64/./amplxe-gui &"

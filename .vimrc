@@ -45,7 +45,7 @@ set incsearch
 set hlsearch
 
 " Load C Code abbreviations and settings for *.c/*.h files"
-au BufReadPost,BufNewFile *.c,*.cpp source ~/vim_files/c_code.vim
+au BufReadPost,BufNewFile *.c source ~/vim_files/c_code.vim
 au BufReadPost,BufNewFile *.h source ~/vim_files/c_code.vim
 
 if has("autocmd")

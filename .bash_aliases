@@ -504,6 +504,8 @@ if [[ -z $(type -t sendsetupfiles) ]]; then
    alias_func setitup "sendsetupfiles"
 fi
 
+
+
 ###############################
 # CUDA Documentation
 ###############################
@@ -523,9 +525,8 @@ alias_func sandboxcuda "c ${HOME}/Sandbox/CUDA/cuda-example"
 alias_func sandboxcu "sandboxcuda"
 alias_func sbc "sandboxcuda"
 
-############################################
-# Aliases for accessing other machines
-############################################
+
+
 
 if [[ -z $(type -t nvprofit) ]]; then
    nvprofit() {
@@ -599,14 +600,19 @@ alias_func grcincpmt "grcincludespmt"
 alias_func grcincludes "c ${HOME}/gnuradio/gnuradio-runtime/include/gnuradio"
 alias_func grcinc "grcincludes"
 
+
 alias_func device_query "/usr/local/cuda/samples/1_Utilities/deviceQuery/deviceQuery"
 alias_func device_info "device_query"
 alias_func gpu_info "device_query"
 alias_func gpuinfo "device_query"
 alias_func lsgpu "device_query"
 
+
 alias_func ncmk "rm -rf build && mkdircd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make"
 alias_func cmk "find . -delete && cmake -DCMAKE_BUILD_TYPE=Release .. && make VERBOSE=1"
 alias_func cmkdbg "find . -delete && cmake -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=1"
 alias_func mk "make VERBOSE=1"
 
+if [[ -f ~/.work_aliases ]]; then
+  source ~/.work_aliases
+fi

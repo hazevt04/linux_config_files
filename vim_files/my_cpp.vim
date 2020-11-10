@@ -1,18 +1,25 @@
-source my_c.vim
+set tabstop=3
+set softtabstop=3
+set shiftwidth=3
+set autoindent
+set smartindent
+
+ab aprt printf( " \n" );
+ab aprn printf( "\n" );
 
 ab acout std::cout << "";
-ab acerr std::cerr << "";
+ab acoutn std::cout << "\n";
+ab acoutf std::cout << __func__ << "\n";
+ab acerr std::cerr << __func__ << "() ERROR: " << "\n";
+ab astds std::string{}<Esc>i
 
-ab acerrn std::cerr << "\n";
-ab acerrfn std::cerr << __func__ << "(): ERROR: " << err_msg << "\n";
-
-ab acoutn std::cout << "\n"; 
-ab acoutf std::cout << __func__ << "(): ";
-ab acoutfn std::cout << __func__ << "(): \n";
-ab acoutfe std::cout << __func__ << "(): ERROR: " << err_msg << "\n"; 
-
-ab atcatch try {<CR>} catch ( std::exception& ex ) {<CR>std::cout << __func__ << "() ERROR: " << ex.what() << "\n";<CR>}
+ab adout debug_cout( debug, "Val is ", val , "\n" );
+ab adfout debug_cout( debug, __func__, "(): Val is ", val , "\n" );
+ab adprt debug_printf( debug, "%s(): \n", __func__ );
 
 ab aforl for( int index = 0; index < terminal; ++index ) {<CR>}
-ab aforlv for ( std::vector<T>::size_t index = 0; index != vec.size(); ++index ) {<CR>}
+ab aforlv for( size_t index; index < vec.size(); ++index ) {<CR>}
+ab aif if( condition ) {<CR>}
+ab awhil while( !condition ) {<CR>}
+ab acase switch( var ) {<CR>case( op1 ):<CR>break;<CR>case( op2 ):<CR>break;<CR>default:<CR>exit;<CR>}
 

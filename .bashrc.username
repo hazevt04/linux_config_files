@@ -67,13 +67,12 @@ xterm*|rxvt*)
     ;;
 esac
 
-export MY_GIT_SERVER="git@gitlab.com:hazevt04"
+export MY_GIT_SERVER="git@github.com:hazevt04"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -86,22 +85,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f /opt/ros/melodic/setup.bash ]; then
-   . /opt/ros/melodic/setup.bash
-fi
-
-if [ -f ~/catkin_ws/devel/setup.bash ]; then
-   . ~/catkin_ws/devel/setup.bash
-fi
-
 export PATH=/usr/local/cuda/bin:$PATH
 
 export PATH=/home/ghazelwood/.cargo/bin:$PATH
 
 # Add libre office to my path
 export PATH=/usr/lib/libreoffice/program/:$PATH
-
-
 
 export MANPATH=/usr/share/man:$MANPATH
 
@@ -123,16 +112,12 @@ export CUB_DIR=/home/${USER}/cub-1.8.0
 export CUDA_API_WRAPPERS_LIBRARY_DIR=/usr/local/lib
 export CUDA_API_WRAPPERS_INCLUDE_DIR=/usr/local/include/cuda
 
-#cd ${HOME}/ULTIMATHULE/USRP/CUDA
-#cd ${HOME}/Sandbox/C++/usrp
-#cd ${HOME}/Sandbox/Python/fspec_cuda_python_ext/cython
-
 # Shut up the annoying GTK messages!!
 # See https://unix.stackexchange.com/questions/230238/x-applications-warn-couldnt-connect-to-accessibility-bus-on-stderr 
 # The accessibility warning is a known bug with an easy workaround if you don't use any accessibility feature:
 export NO_AT_BRIDGE=1
 
-export CMAKE_MODULE_PATH=/usr/share/cmake-3.10/Modules
+export CMAKE_MODULE_PATH=/usr/share/cmake-3.16/Modules
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# From https://askubuntu.com/questions/1273399/problems-with-chrome-browser-after-suspending-the-computer-on-ubuntu-20-04/1289285#1289285
+
+set -e
+
+if [ "$2" = "suspend" ] || [ "$2" = "hybrid-sleep" ]
+then
+    case "$1" in
+        pre)
+            true 
+            ;;
+        post) 
+            sleep 1
+            pkill -f 'chrome \-\-type=gpu-process'
+            ;;
+    esac
+fi
+

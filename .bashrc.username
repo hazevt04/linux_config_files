@@ -67,9 +67,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-#export MY_GIT_SERVER="git@gitlab.com:hazevt04"
-export MY_GIT_SERVER="git@ssh.gitlab.internal.ltsnet.net:rogueadvisor"
-
+export MY_GIT_SERVER="git@gitlab.com:hazevt04"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

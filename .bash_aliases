@@ -294,11 +294,14 @@ fi
 ###########################
 ## Git Aliases
 ###########################
+export MY_GIT_REPO_PREFIX="git@github.com"
+export MY_GIT_USER="hazevt04"
+export MY_GIT_REPO_PREFIX="${MY_GIT_REPO_PREFIX}:${MY_GIT_USER}"
 
 alias_func gurl "git remote -v"
-alias_func ginit "git init; git config user.name \"hazevt04\""
+alias_func ginit "git init; git config user.name \"${MY_GIT_USER}\""
 
-alias_func ginitwork "git init; git config user.name ${USER}"
+alias_func ginitwork "git init; git config user.name ${MY_GIT_USER}"
 
 alias_func gba "git branch -a"
 
@@ -312,8 +315,6 @@ gs() {
    fi
    git status | head -n "${num_lines}"
 }
-
-
 
 alias_func replace_spaces "for f in *\ *; do mv \"\$f\" \"\${f// /_}\"; done"
 alias_func repspaces "replace_spaces"
@@ -334,16 +335,14 @@ fi
 
 if [[ -z $(type -t gclone) ]]; then
    gclone() {
-      url="${MY_GIT_SERVER}/${1}.git"
-      # Extract the directory name from the Git URL
-      dirname=$1
-      git clone "$url" --branch develop "$dirname"
+      url="${MY_GIT_REPO_PREFIX}/${1}.git"
+      git clone "$url" 
    }
 fi
 
 if [[ -z $(type -t gcloneb) ]]; then
    gcloneb() {
-      url="${MY_GIT_SERVER}/${1}.git"
+      url="${MY_GIT_REPO_PREFIX}/${1}.git"
       branch=$2
       dirname=$1
       git clone "$url" --branch "$branch" "${dirname}_${branch}"
@@ -352,7 +351,7 @@ fi
 
 if [[ -z $(type -t gfetch) ]]; then
    gfetch() {
-      url="${MY_GIT_SERVER}/${1}.git"
+      url="${MY_GIT_REPO_PREFIX}/${1}.git"
       branch=$2
       git fetch "$url" "$branch"
    }
@@ -360,7 +359,7 @@ fi
 
 if [[ -z $(type -t gpull) ]]; then
    gpull() {
-      url="${MY_GIT_SERVER}/${1}.git"
+      url="${MY_GIT_REPO_PREFIX}/${1}.git"
       branch=$2
       git pull "$url" "$branch"
    }

@@ -520,11 +520,20 @@ alias_func cudoc "cuda_doc_dir"
 ################################
 # Main Work directory aliases
 ################################
-alias_func sandboxcuda "c ${HOME}/Sandbox/CUDA/cuda-example"
+alias_func sandbox "c ${HOME}/Sandbox"
+alias_func sbx "sandbox"
+
+alias_func sandboxcuda "c ${HOME}/Sandbox/CUDA/cuda_template"
 alias_func sandboxcu "sandboxcuda"
+alias_func sbxcu "sandboxcuda"
+alias_func sbxc "sandboxcuda"
 alias_func sbc "sandboxcuda"
 
-
+alias_func sandboxcpp "c ${HOME}/Sandbox/CUDA/c_plus_plus_template"
+alias_func sandboxcp "sandboxcpp"
+alias_func sbxcpp "sandboxcpp"
+alias_func sbcpp "sandboxcpp"
+alias_func sbcp "sandboxcpp"
 
 
 if [[ -z $(type -t nvprofit) ]]; then

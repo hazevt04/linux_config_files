@@ -87,14 +87,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f /opt/ros/melodic/setup.bash ]; then
-   . /opt/ros/melodic/setup.bash
-fi
-
-if [ -f ~/catkin_ws/devel/setup.bash ]; then
-   . ~/catkin_ws/devel/setup.bash
-fi
-
 export PATH=/usr/local/cuda/bin:$PATH
 
 export PATH=/home/ghazelwood/.cargo/bin:$PATH
@@ -123,10 +115,6 @@ export CUB_DIR=/home/${USER}/cub-1.8.0
 
 export CUDA_API_WRAPPERS_LIBRARY_DIR=/usr/local/lib
 export CUDA_API_WRAPPERS_INCLUDE_DIR=/usr/local/include/cuda
-
-#cd ${HOME}/ULTIMATHULE/USRP/CUDA
-#cd ${HOME}/Sandbox/C++/usrp
-#cd ${HOME}/Sandbox/Python/fspec_cuda_python_ext/cython
 
 # Shut up the annoying GTK messages!!
 # See https://unix.stackexchange.com/questions/230238/x-applications-warn-couldnt-connect-to-accessibility-bus-on-stderr 

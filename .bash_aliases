@@ -226,6 +226,7 @@ alias_func jason_undo "undo_jason;"
 alias_func clean_jason "rm -rf BACKUP"
 alias_func jason_clean "clean_jason"
 
+
 if [[ -z $(type -t v) ]]; then
    v() {
       vim $1;
@@ -247,6 +248,12 @@ fi
 if [[ -z $(type -t e) ]]; then
    e() {
       evince "$@" &
+   }
+fi
+
+if [[ -z $(type -t vscode) ]]; then
+   vscode() {
+      code "$@" &
    }
 fi
 
@@ -393,7 +400,14 @@ if [[ -z $(type -t gadd) ]]; then
    }
 fi
 
-alias_func gaddu "git add -u"
+#alias_func gaddu "git add -u"
+
+if [[ -z $(type -t gaddu) ]]; then
+   gaddu() {
+      modified_files=$(git status -v | grep modified | cut -d ':' -f 2 | tr -d '\n')
+      git add -u $modified_files
+   }
+fi
 
 if [[ -z $(type -t gacp) ]]; then
    gacp() {
@@ -602,14 +616,7 @@ if [[ -z $(type -t grc) ]]; then
    alias_func gnurad "grc"
 fi
 
-alias_func grcincludespmt "c ${HOME}/gnuradio/gnuradio-runtime/include/pmt"
-alias_func grcincpmt "grcincludespmt"
-
-alias_func grcincludes "c ${HOME}/gnuradio/gnuradio-runtime/include/gnuradio"
-alias_func grcinc "grcincludes"
-
-
-alias_func device_query "/usr/local/cuda/samples/1_Utilities/deviceQuery/deviceQuery"
+alias_func device_query "${CUDA_HOME}/samples/1_Utilities/deviceQuery/deviceQuery"
 alias_func device_info "device_query"
 alias_func gpu_info "device_query"
 alias_func gpuinfo "device_query"
@@ -620,6 +627,8 @@ alias_func ncmk "rm -rf build && mkdircd build && cmake -DCMAKE_BUILD_TYPE=Relea
 alias_func cmk "find . -delete && cmake -DCMAKE_BUILD_TYPE=Release .. && make VERBOSE=1"
 alias_func cmkdbg "find . -delete && cmake -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=1"
 alias_func mk "make VERBOSE=1"
+
+echo "Loaded Glenn's BASH Aliases..."
 
 if [[ -f ~/.work_aliases ]]; then
   source ~/.work_aliases

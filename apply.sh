@@ -10,11 +10,11 @@ cp .vimrc ~/
 cp .gdbinit ~/
 cp .tmux.conf ~/
 
-if [[ -z $(type -t ruby) ]];
+if [[ -z $(type -t ruby) ]]; then
     echo "My .vimrc uses a Ruby script. I need Ruby installed or comment out the 'gen_proto' line in the .vimrc.";
     exit 1;
 else
-    git clone git@github.com:hazevt04/gen_proto.git && mv gen_proto ~/
+    git clone git@github.com:hazevt04/gen_proto.git && mv gen_proto $HOME
 fi
 
 source .bashrc

@@ -35,7 +35,6 @@ set number
 " Highlight current line"
 set cursorline
 
-
 " visual autocomplete on"
 set wildmenu
 
@@ -92,7 +91,7 @@ filetype plugin on
 syntax enable
 " load filetype specific indent files
 filetype indent on
-let hostname = substitute(system('hostname'), '\n', '', '')
+"let hostname = substitute(system('hostname'), '\n', '', '')
 if has("autocmd")
    " Set Makefiles to NOT use spaces for tabs
    autocmd FileType make setlocal noexpandtab
@@ -110,13 +109,16 @@ if has("autocmd")
    au BufReadPost,BufNewFile *.cuh source ~/vim_files/my_cuda.vim
    
    au BufReadPost,BufNewFile *.py source ~/vim_files/my_python.vim
+   au BufReadPost,BufNewFile *.m source ~/vim_files/my_matlab.vim
    
+   au BufReadPost,BufNewFile *.sv source ~/vim_files/my_systemverilog.vim
+
    " My own custom file extension-- .dailylog for my daily log wiki code file
    au BufReadPost,BufNewFile *.dailylog source ~/vim_files/my_dailylog.vim
    
    " Needs Ruby to run. sharkarmy doesn't have ruby.
    " run a script for every new file
-   if hostname != "sharkarmy-02"
+   if has("ruby")
       autocmd BufNewFile * execute "0, 0 !~/gen_proto/gen_proto <afile>"
    endif
 
@@ -181,60 +183,58 @@ inoremap jj <ESC>
 "#############################################
 " Plugins
 "#############################################
-if hostname != "sharkarmy-01"
-   if empty(glob('~/.vim/autoload/plug.vim'))
-     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-       autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
-   endif
-
-   " Specify a directory for plugins
-   call plug#begin('~/.vim/plugged')
-   Plug 'scrooloose/nerdcommenter'
-   Plug 'scrooloose/nerdtree'
-   Plug 'mileszs/ack.vim'
-   Plug 'easymotion/vim-easymotion'
-   Plug 'tpope/vim-sleuth'
-   " Plug 'rainbow_parenthsis'
-   " Initialize plugin system
-   call plug#end()
-   
-   "--------------------------------
-   " NERDCommenter Stuff
-   "--------------------------------
-   " For commented out code, I don't want a space after
-   " the comment delimiter. For actual comments, I do
-   " want the space.
-   " Add spaces after comment delimiters by default
-   "let g:NERDSpaceDelims = 1
-   
-   " Align line-wise comment delimiters flush left instead of following code indentation
-   let g:NERDDefaultAlign = 'left'
-   
-   " Use compact syntax for prettified multi-line comments
-   let g:NERDCompactSexyComs = 1
-
-   " Add your own custom formats or override the defaults
-   "let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
-   let g:NERDCustomDelimiters = { 
-      \ 'c': { 'left': '//','right': '' },
-      \ 'h': { 'left': '//','right': '' },
-      \ 'CUDA': { 'left': '//','right': '' },
-      \ 'cpp': { 'left': '//','right': '' }
-      \ }
-
-   "--------------------------------
-   " NERDTree Stuff
-   "--------------------------------
-   " If opening a directory, NERDTREE opens automatically
-   autocmd StdinReadPre * let s:std_in=1
-   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-
-   map <C-n> :NERDTreeToggle<CR>
-
-   "--------------------------------
-   " Ack Stuff
-   "--------------------------------
-   " For ack.vim which uses ack (like grep but better)
-   nnoremap <leader>a :Ack
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
+
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'mileszs/ack.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-sleuth'
+" Plug 'rainbow_parenthsis'
+" Initialize plugin system
+call plug#end()
+
+"--------------------------------
+" NERDCommenter Stuff
+"--------------------------------
+" For commented out code, I don't want a space after
+" the comment delimiter. For actual comments, I do
+" want the space.
+" Add spaces after comment delimiters by default
+"let g:NERDSpaceDelims = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Add your own custom formats or override the defaults
+"let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
+let g:NERDCustomDelimiters = { 
+\ 'c': { 'left': '//','right': '' },
+\ 'h': { 'left': '//','right': '' },
+\ 'CUDA': { 'left': '//','right': '' },
+\ 'cpp': { 'left': '//','right': '' }
+\ }
+
+"--------------------------------
+" NERDTree Stuff
+"--------------------------------
+" If opening a directory, NERDTREE opens automatically
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+map <C-n> :NERDTreeToggle<CR>
+
+"--------------------------------
+" Ack Stuff
+"--------------------------------
+" For ack.vim which uses ack (like grep but better)
+nnoremap <leader>a :Ack

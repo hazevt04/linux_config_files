@@ -17,4 +17,4 @@ cp ~/.vimrc .
 cp ~/.gdbinit .
 cp ~/.tmux.conf .
 
-gacp "$@"
+#gacp "$@"

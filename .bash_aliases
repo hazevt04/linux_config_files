@@ -387,7 +387,7 @@ if [[ -z $(type -t gpo) ]]; then
    }
 fi
 
-if [[ -z $(type -t gpo) ]]; then
+if [[ -z $(type -t gpob) ]]; then
    gpob() {
       git push origin $1
    }
